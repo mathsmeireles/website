@@ -1,4 +1,4 @@
-baseURL = "https://matheush.com/"
+baseURL = "/"
 title   = "Matheus Henrique"
 languageCode = "pt-br"
 theme = "hello-friend-ng"
