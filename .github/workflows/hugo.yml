@@ -72,12 +72,12 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4.0.2
         with:
           aws-region: ${{ vars.AWS_REGION }}
-          role-to-assume: arn:aws:iam::075610713715:role/MyWebsite_S3Deployer # this will be the ARN of the role you created in the "Creating a Role for deployment" step.
-          role-session-name: GithubActions-MyHugoProject
+          role-to-assume: arn:aws:iam::075610713715:role/MyWebsite_S3Deployer
+          role-session-name: GithubActions-MyWebsite
           mask-aws-account-id: true
       - name: Sync to S3
         id: deployment
         run: aws s3 sync ./public/ s3://${{ vars.BUCKET_NAME }} --delete --cache-control max-age=31536000
-#      - name: Cloudfront Invalidation
-#        id: flushcache
-#        run: aws cloudfront create-invalidation --distribution-id ${{ vars.CF_DISTRIBUTION_ID }} --paths "/*"
+      - name: Cloudfront Invalidation
+        id: flushcache
+        run: aws cloudfront create-invalidation --distribution-id ${{ vars.CF_DISTRIBUTION_ID }} --paths "/*"
